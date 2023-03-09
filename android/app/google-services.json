@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "753156134051",
+    "firebase_url": "https://assistedpns-default-rtdb.firebaseio.com",
+    "project_id": "assistedpns",
+    "storage_bucket": "assistedpns.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753156134051:android:b0c42b0e81fb6562fb5b16",
+        "android_client_info": {
+          "package_name": "com.example.assisted_pns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753156134051-emjqjktgcqo55ra1gknpn5vui0fl72n6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwlUCOl38SZJ8JIlW9DexC27H973RkvPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753156134051-emjqjktgcqo55ra1gknpn5vui0fl72n6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
