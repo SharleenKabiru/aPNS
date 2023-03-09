@@ -88,7 +88,7 @@ class _PatientsPageState extends State<PatientsPage> {
 
   void savePatientInfo() {
     DatabaseReference patientRef =
-    FirebaseDatabase.instance.reference().child("patients").push();
+    FirebaseDatabase.instance.ref().child("patients").push();
     Map patientInfo = {
       "id": _id,
       "name": _name,

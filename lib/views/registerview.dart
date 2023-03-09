@@ -34,6 +34,20 @@ class _RegisterPageState extends State<RegisterPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                decoration: InputDecoration(labelText: "Number"),
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value?.isEmpty == true) {
+                    return "Please enter the number";
+                  }
+                  return null;
+                },
+                controller: _numberController,
+                onChanged: (value) {
+                  _number = value;
+                },
+              ),
+              TextFormField(
                 decoration: InputDecoration(labelText: "Name"),
                 validator: (value) {
                   if (value?.isEmpty == true) {
@@ -87,20 +101,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   _mobileNumber = value;
                 },
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: "Number"),
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  if (value?.isEmpty == true) {
-                    return "Please enter the number";
-                  }
-                  return null;
-                },
-                controller: _numberController,
-                onChanged: (value) {
-                  _number = value;
-                },
-              ),
               SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
@@ -108,7 +108,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (_formKey.currentState?.validate() ==true) {
                       _formKey.currentState?.save();
                       registerUser();
-                      registerPatient();
                     }
                   },
                   child: Text("Register"),
@@ -131,19 +130,18 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       showToast("Registration failed");
     }
+    DatabaseReference patientRef =
+    FirebaseDatabase.instance.ref().child("hts_counsellors").push();
+    Map patientInfo = {
+      "_number": _number,
+       "name": _name,
+      "email": _email,
+      "_password": _password,
+      "_mobileNumber": _mobileNumber,
+    };
+    patientRef.set(patientInfo);
   }
 
-  void registerPatient() {
-    DatabaseReference dbRef =
-    _databaseReference.child("patients").child(_number);
-    Map<String, dynamic> patientData = {
-      "id": _number,
-      "name": _name,
-      "contact": _mobileNumber,
-      "isPatient": true,
-    };
-    dbRef.set(patientData).then((value) => showToast("Patient registered"));
-  }
 
   void showToast(String message) {
     Fluttertoast.showToast(

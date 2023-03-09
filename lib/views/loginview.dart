@@ -1,7 +1,9 @@
+import 'package:assisted_pns/views/patients_list.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:assisted_pns/auth_service.dart';
+
+import '../auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,70 +11,28 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  late String _email, _password;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              decoration: InputDecoration(labelText: "Email"),
-              validator: (value) {
-                if (value?.isEmpty == true) {
-                  return "Please enter the email";
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _email = value!;
-              },
-            ),
-            TextFormField(
-              decoration: InputDecoration(labelText: "Password"),
-              obscureText: true,
-              validator: (value) {
-                if (value?.isEmpty == true) {
-                  return "Please enter the password";
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _password = value!;
-              },
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() == true) {
-                    _formKey.currentState?.save();
-                    signIn();
-                  }
-                },
-                child: Text("Login"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  bool _isLoading = false;
 
-  void signIn() async {
-    AuthService auth = AuthService();
+  void _onLoginPressed() async {
+    setState(() {
+      _isLoading = true;
+    });
     UserCredential? userCredential =
-    await auth.signInWithEmailAndPassword(_email, _password);
+    await _authService.signInWithEmailAndPassword(
+        _emailController.text, _passwordController.text);
+    setState(() {
+      _isLoading = false;
+    });
     if (userCredential != null) {
-      showToast("Login successful");
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => PatientslistPage()),
+      );
     } else {
       showToast("Login failed");
     }
@@ -82,11 +42,75 @@ class _LoginPageState extends State<LoginPage> {
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: Colors.grey[600],
       textColor: Colors.white,
       fontSize: 16.0,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login"),
+      ),
+      body: Center(
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  TextFormField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value?.isEmpty == true) {
+                        return "Email is required";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 16.0),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value?.isEmpty == true) {
+                        return "Password is required";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 16.0),
+                  ElevatedButton(
+                    child: Text("Login"),
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() == true) {
+                        _onLoginPressed();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
