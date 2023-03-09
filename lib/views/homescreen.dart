@@ -1,5 +1,5 @@
 import 'package:assisted_pns/views/loginview.dart';
-import 'package:assisted_pns/views/patients.dart';
+import 'package:assisted_pns/views/persons.dart';
 import 'package:assisted_pns/views/registerview.dart';
 import 'package:flutter/material.dart';
 

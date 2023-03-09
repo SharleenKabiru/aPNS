@@ -1,4 +1,5 @@
 import 'package:assisted_pns/views/homescreen.dart';
+import 'package:assisted_pns/views/partner.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ void main() async{
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  HomePage(),
+      home:  PartnerPage(),
     ),
   );
 }
