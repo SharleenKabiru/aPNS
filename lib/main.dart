@@ -14,7 +14,7 @@ void main() async{
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  PartnerPage(),
+      home:  HomePage(),
     ),
   );
 }
