@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../auth_service.dart';
+import 'loginHomeScreen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     if (userCredential != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PatientslistPage()),
+        MaterialPageRoute(builder: (context) => loginHomepage()),
       );
     } else {
       showToast("Login failed");

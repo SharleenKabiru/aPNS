@@ -133,11 +133,11 @@ class _RegisterPageState extends State<RegisterPage> {
     DatabaseReference patientRef =
     FirebaseDatabase.instance.ref().child("hts_counsellors").push();
     Map patientInfo = {
-      "_number": _number,
+      "number": _number,
        "name": _name,
       "email": _email,
-      "_password": _password,
-      "_mobileNumber": _mobileNumber,
+      "password": _password,
+      "mobileNumber": _mobileNumber,
     };
     patientRef.set(patientInfo);
   }

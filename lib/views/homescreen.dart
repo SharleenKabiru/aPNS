@@ -32,15 +32,6 @@ class HomePage extends StatelessWidget {
               },
               child: Text("Register"),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PatientsPage()),
-                );
-              },
-              child: Text("Patients"),
-            ),
           ],
         ),
       ),

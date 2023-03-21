@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class PatientsPage extends StatefulWidget {
+class TestResultsPage extends StatefulWidget {
   @override
-  _PatientsPageState createState() => _PatientsPageState();
+  _TestResultsPageState createState() => _TestResultsPageState();
 }
 
-class _PatientsPageState extends State<PatientsPage> {
+class _TestResultsPageState extends State<TestResultsPage> {
   final _formKey = GlobalKey<FormState>();
   late String _id, _name, _contact;
   bool _isPatient = false;
@@ -113,7 +113,6 @@ class _PatientsPageState extends State<PatientsPage> {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
 
 
 

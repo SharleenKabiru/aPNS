@@ -1,13 +1,16 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_database/firebase_database.dart';
 
-class PatientsPage extends StatefulWidget {
+class testresultsform extends StatefulWidget {
+  const testresultsform({Key? key}) : super(key: key);
+
   @override
-  _PatientsPageState createState() => _PatientsPageState();
+  State<testresultsform> createState() => _testresultsformState();
 }
 
-class _PatientsPageState extends State<PatientsPage> {
+class _testresultsformState extends State<testresultsform> {
+
   final _formKey = GlobalKey<FormState>();
   late String _id, _name, _contact;
   bool _isPatient = false;
@@ -16,7 +19,7 @@ class _PatientsPageState extends State<PatientsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Patient"),
+        title: Text("Test Results Form"),
       ),
       body: Form(
         key: _formKey,
@@ -27,7 +30,7 @@ class _PatientsPageState extends State<PatientsPage> {
               decoration: InputDecoration(labelText: "ID"),
               validator: (value) {
                 if (value?.isEmpty == true) {
-                  return "Please enter your national ID number";
+                  return "Please enter the ID";
                 }
                 return null;
               },
@@ -39,7 +42,7 @@ class _PatientsPageState extends State<PatientsPage> {
               decoration: InputDecoration(labelText: "Name"),
               validator: (value) {
                 if (value?.isEmpty == true) {
-                  return "Please enter your full name";
+                  return "Please enter the name";
                 }
                 return null;
               },
@@ -51,7 +54,7 @@ class _PatientsPageState extends State<PatientsPage> {
               decoration: InputDecoration(labelText: "Contact"),
               validator: (value) {
                 if (value?.isEmpty == true) {
-                  return "Please enter your phone number";
+                  return "Please enter the contact";
                 }
                 return null;
               },
@@ -112,11 +115,3 @@ class _PatientsPageState extends State<PatientsPage> {
     );
   }
 }
-
-/////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
